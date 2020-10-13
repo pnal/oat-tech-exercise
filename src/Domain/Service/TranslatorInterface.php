@@ -17,5 +17,9 @@ interface TranslatorInterface
      * @param string $fromLanguage
      * @return array
      */
-    public function translateEntity(TranslatableInterface $object, string $toLanguage, string $fromLanguage = self::DEFAULT_LANG): array;
+    public function translateEntity(
+        TranslatableInterface $object,
+        string $toLanguage,
+        string $fromLanguage = self::DEFAULT_LANG
+    ): array;
 }

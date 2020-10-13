@@ -6,13 +6,12 @@ namespace App\Domain\Entity;
 
 abstract class AbstractQuestion extends AbstractEntity
 {
+    /** @var string[] */
+    protected static $propertiesCanBeTranslated = ['text'];
     /** @var string */
     private $text;
     /** @var string */
     private $createdAt;
-
-    /** @var string[]  */
-    protected static $propertiesCanBeTranslated = ['text'];
 
     /**
      * @param string|null $text

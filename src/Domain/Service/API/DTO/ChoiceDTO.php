@@ -14,19 +14,23 @@ class ChoiceDTO
 
     public $text;
 
-    public static function fromArray(array $choiceAssoc, int $choiceNumber) {
-        if (!isset($choiceAssoc[static::TEXT_PROP_EXT_NAME])){
-            throw new APIValidationException(sprintf(static::MISSED_PROPERTY_ERROR_MESSAGE_TEMPLATE, $choiceNumber, static::TEXT_PROP_EXT_NAME));
+    public static function fromArray(array $choiceAssoc, int $choiceNumber)
+    {
+        if (!isset($choiceAssoc[static::TEXT_PROP_EXT_NAME])) {
+            throw new APIValidationException(
+                sprintf(static::MISSED_PROPERTY_ERROR_MESSAGE_TEMPLATE, $choiceNumber, static::TEXT_PROP_EXT_NAME)
+            );
         }
 
         $self = new self();
-        $self->text =  $choiceAssoc[static::TEXT_PROP_EXT_NAME];
+        $self->text = $choiceAssoc[static::TEXT_PROP_EXT_NAME];
         $self->validate();
 
         return $self;
     }
 
-    private function validate (): bool {
+    private function validate(): bool
+    {
         //throw new APIValidationException();
         return true;
     }

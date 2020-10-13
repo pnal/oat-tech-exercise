@@ -21,14 +21,20 @@ class GoogleTranslatorAdapter implements AdapterInterface
      * @return string
      * @throws InvalidArgumentException
      */
-    public function translate(string $text, string $toLanguage, string $fromLanguage = TranslatorInterface::DEFAULT_LANG): string
-    {
+    public function translate(
+        string $text,
+        string $toLanguage,
+        string $fromLanguage = TranslatorInterface::DEFAULT_LANG
+    ): string {
         // file cache so slow but today it is enough
         $cache = new FilesystemAdapter();
 
-        return $cache->get($fromLanguage . $toLanguage . $text, function (ItemInterface $item) use ($text, $toLanguage, $fromLanguage) {
-            $item->expiresAfter(3600);
-            return GoogleTranslate::trans($text, $toLanguage, $fromLanguage);
-        });
+        return $cache->get(
+            $fromLanguage . $toLanguage . $text,
+            function (ItemInterface $item) use ($text, $toLanguage, $fromLanguage) {
+                $item->expiresAfter(3600);
+                return GoogleTranslate::trans($text, $toLanguage, $fromLanguage);
+            }
+        );
     }
 }

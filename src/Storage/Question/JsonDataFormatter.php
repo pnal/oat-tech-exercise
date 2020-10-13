@@ -16,6 +16,11 @@ class JsonDataFormatter implements DataFormatterInterface
         return $this->encodeData($questions->toArray());
     }
 
+    private function encodeData(array $data): string
+    {
+        return json_encode($data, JSON_PRETTY_PRINT);
+    }
+
     public function getCollectionFromStorageFormat(string $data): ?QuestionCollection
     {
         $collection = new QuestionCollection();
@@ -29,19 +34,14 @@ class JsonDataFormatter implements DataFormatterInterface
         return $collection;
     }
 
-    public function getFormatFileExtension(): string
-    {
-        return static::FORMAT_FILE_EXTENSION;
-    }
-
-    private function encodeData(array $data): string
-    {
-        return json_encode($data, JSON_PRETTY_PRINT);
-    }
-
     private function decodeData(string $data): array
     {
         return json_decode($data) ? (array)json_decode($data) : [];
+    }
+
+    public function getFormatFileExtension(): string
+    {
+        return static::FORMAT_FILE_EXTENSION;
     }
 
 

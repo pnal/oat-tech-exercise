@@ -1,15 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 
 namespace App\Domain\Entity;
+
 use JsonSerializable;
 
 class Choice extends AbstractEntity implements JsonSerializable
 {
+    protected static $propertiesCanBeTranslated = ['text'];
     /** @var string */
     private $text;
-
-    protected static $propertiesCanBeTranslated = ['text'];
 
     /**
      * @param string|null $text
@@ -19,6 +20,13 @@ class Choice extends AbstractEntity implements JsonSerializable
         if (null !== $text) {
             $this->setText($text);
         }
+    }
+
+    public function getAllAsArray(): array
+    {
+        return [
+            'text' => $this->getText()
+        ];
     }
 
     /**
@@ -35,11 +43,5 @@ class Choice extends AbstractEntity implements JsonSerializable
     public function setText(string $text): void
     {
         $this->text = $text;
-    }
-
-    public function getAllAsArray(): array {
-        return [
-            'text' => $this->getText()
-        ];
     }
 }

@@ -64,6 +64,30 @@ class QuestionApiService implements QuestionApiServiceInterface
     }
 
     /**
+     * @param int $code
+     * @param string|null $reason
+     * @return ResponseInterface
+     */
+    private function errorCodeResponse(int $code, string $reason = null): ResponseInterface
+    {
+        $psr17Factory = new Psr17Factory();
+        return $psr17Factory->createResponse($code, $reason);
+    }
+
+    /**
+     * @param $data
+     * @param $code
+     * @return ResponseInterface
+     */
+    private function jsonResponse($data, $code): ResponseInterface
+    {
+        $psr17Factory = new Psr17Factory();
+
+        $stream = $psr17Factory->createStream(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        return $psr17Factory->createResponse($code)->withHeader('Content-type', 'application/json')->withBody($stream);
+    }
+
+    /**
      * @param ServerRequestInterface $request
      * @return ResponseInterface
      */
@@ -82,29 +106,5 @@ class QuestionApiService implements QuestionApiServiceInterface
         $savedQuestion = $this->questionRepository->storeOne($question);
 
         return $this->jsonResponse($savedQuestion, 200);
-    }
-
-    /**
-     * @param $data
-     * @param $code
-     * @return ResponseInterface
-     */
-    private function jsonResponse($data, $code): ResponseInterface
-    {
-        $psr17Factory = new Psr17Factory();
-
-        $stream = $psr17Factory->createStream(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-        return $psr17Factory->createResponse($code)->withHeader('Content-type', 'application/json')->withBody($stream);
-    }
-
-    /**
-     * @param int $code
-     * @param string|null $reason
-     * @return ResponseInterface
-     */
-    private function errorCodeResponse(int $code, string $reason = null): ResponseInterface
-    {
-        $psr17Factory = new Psr17Factory();
-        return $psr17Factory->createResponse($code, $reason);
     }
 }

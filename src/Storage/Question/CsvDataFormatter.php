@@ -28,15 +28,52 @@ class CsvDataFormatter implements DataFormatterInterface
             $dataArray[] = $this->prepareDataRow(
                 $item->getText(),
                 $item->getCreatedAt(),
-                ... array_map(function ($choice): string {
-                    return $choice->getText();
-                }, $choices)
+                ... array_map(
+                    function ($choice): string {
+                        return $choice->getText();
+                    },
+                    $choices
+                )
             );
         }
 
         $headerRow = $this->prepareHeaderRow($maxChoicesCount);
 
         return $this->getCsvString($headerRow, ...$dataArray);
+    }
+
+    private function prepareDataRow(string ...$props): array
+    {
+        return $props;
+    }
+
+    private function prepareHeaderRow($maxChoicesCount): array
+    {
+        $headerArray = [self::CSV_HEADER_QUESTION_TEXT, self::CSV_HEADER_CREATED_AT];
+        for ($i = 1; $i <= $maxChoicesCount; $i++) {
+            array_push($headerArray, sprintf('%s %d', self::CSV_HEADER_CHOICE_TEXT, $i));
+        }
+        return $headerArray;
+    }
+
+    /**
+     * Creates CSV file contents as string (used temporary file approach to skip work with character escaping)
+     *
+     * @param array ...$rows
+     * @return string
+     */
+    private function getCsvString(array ...$rows): string
+    {
+        $fileHandle = fopen('php://temp', 'r+b');
+        foreach ($rows as $row) {
+            fputcsv($fileHandle, $row, self::CSV_DELIMITER);
+        }
+        rewind($fileHandle);
+
+        $resultCsvString = stream_get_contents($fileHandle);
+        fclose($fileHandle);
+
+        return $resultCsvString;
     }
 
     public function getCollectionFromStorageFormat(string $data): ?QuestionCollection
@@ -66,40 +103,6 @@ class CsvDataFormatter implements DataFormatterInterface
     public function getFormatFileExtension(): string
     {
         return static::FORMAT_FILE_EXTENSION;
-    }
-
-    /**
-     * Creates CSV file contents as string (used temporary file approach to skip work with character escaping)
-     *
-     * @param array ...$rows
-     * @return string
-     */
-    private function getCsvString(array ...$rows): string
-    {
-        $fileHandle = fopen('php://temp', 'r+b');
-        foreach ($rows as $row) {
-            fputcsv($fileHandle, $row, self::CSV_DELIMITER);
-        }
-        rewind($fileHandle);
-
-        $resultCsvString = stream_get_contents($fileHandle);
-        fclose($fileHandle);
-
-        return $resultCsvString;
-    }
-
-    private function prepareDataRow(string ...$props): array
-    {
-        return $props;
-    }
-
-    private function prepareHeaderRow($maxChoicesCount): array
-    {
-        $headerArray = [self::CSV_HEADER_QUESTION_TEXT, self::CSV_HEADER_CREATED_AT];
-        for ($i = 1; $i <= $maxChoicesCount; $i++) {
-            array_push($headerArray, sprintf('%s %d', self::CSV_HEADER_CHOICE_TEXT, $i));
-        }
-        return $headerArray;
     }
 
 

@@ -13,5 +13,5 @@ interface AdapterInterface
      * @return string
      * @throws TranslationException
      */
-    public function translate (string $text, string $toLanguage, string $fromLanguage = 'en'): string;
+    public function translate(string $text, string $toLanguage, string $fromLanguage = 'en'): string;
 }
