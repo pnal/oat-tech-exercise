@@ -10,6 +10,7 @@ use App\Domain\Entity\MultipleChoiceQuestion;
 
 class CsvDataFormatter implements DataFormatterInterface
 {
+    /* Todo move it to config */
     protected const CSV_HEADER_QUESTION_TEXT = 'Question text';
     protected const CSV_HEADER_CREATED_AT = 'Created At';
     protected const CSV_HEADER_CHOICE_TEXT = 'Choice';
@@ -17,6 +18,9 @@ class CsvDataFormatter implements DataFormatterInterface
 
     protected const FORMAT_FILE_EXTENSION = '.csv';
 
+    /**
+     * @inheritDoc
+     */
     public function formatForStorage(QuestionCollection $questions): string
     {
         $maxChoicesCount = 0;
@@ -76,7 +80,10 @@ class CsvDataFormatter implements DataFormatterInterface
         return $resultCsvString;
     }
 
-    public function getCollectionFromStorageFormat(string $data): ?QuestionCollection
+    /**
+     * @inheritDoc
+     */
+    public function getCollectionFromStorageFormat(string $data): QuestionCollection
     {
         $questions = new QuestionCollection();
         foreach (explode(PHP_EOL, $data) as $i => $row) {
@@ -100,6 +107,9 @@ class CsvDataFormatter implements DataFormatterInterface
         return $questions;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getFormatFileExtension(): string
     {
         return static::FORMAT_FILE_EXTENSION;

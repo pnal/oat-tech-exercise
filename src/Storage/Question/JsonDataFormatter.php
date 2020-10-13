@@ -11,6 +11,9 @@ class JsonDataFormatter implements DataFormatterInterface
 {
     protected const FORMAT_FILE_EXTENSION = '.json';
 
+    /**
+     * @inheritDoc
+     */
     public function formatForStorage(QuestionCollection $questions): string
     {
         return $this->encodeData($questions->toArray());
@@ -21,7 +24,10 @@ class JsonDataFormatter implements DataFormatterInterface
         return json_encode($data, JSON_PRETTY_PRINT);
     }
 
-    public function getCollectionFromStorageFormat(string $data): ?QuestionCollection
+    /**
+     * @inheritDoc
+     */
+    public function getCollectionFromStorageFormat(string $data): QuestionCollection
     {
         $collection = new QuestionCollection();
         foreach ($this->decodeData($data) as $questionData) {
@@ -36,9 +42,12 @@ class JsonDataFormatter implements DataFormatterInterface
 
     private function decodeData(string $data): array
     {
-        return json_decode($data) ? (array)json_decode($data) : [];
+        return json_decode($data) ?: [];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getFormatFileExtension(): string
     {
         return static::FORMAT_FILE_EXTENSION;
