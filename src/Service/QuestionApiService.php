@@ -51,7 +51,6 @@ class QuestionApiService implements QuestionApiServiceInterface
             try {
                 $response = [];
                 foreach ($questions as $question) {
-                    var_dump($question);
                     $response[] = $this->translatorService->translateEntity($question, $queryParams['lang']);
                 }
             } catch (TranslationException $e) {

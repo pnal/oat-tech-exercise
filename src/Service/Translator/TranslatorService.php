@@ -4,7 +4,7 @@
 namespace App\Service\Translator;
 
 
-use App\Domain\Entity\Translatable;
+use App\Domain\Entity\TranslatableInterface;
 use App\Domain\Service\TranslatorInterface;
 use Matriphe\ISO639\ISO639;
 
@@ -28,7 +28,7 @@ class TranslatorService implements TranslatorInterface
      * @inheritDoc
      * @throws TranslationException
      */
-    public function translateEntity(Translatable $object, string $toLanguage, string $fromLanguage = TranslatorInterface::DEFAULT_LANG): array
+    public function translateEntity(TranslatableInterface $object, string $toLanguage, string $fromLanguage = TranslatorInterface::DEFAULT_LANG): array
     {
         if (!$this->langCodeExists($toLanguage)) {
             throw new TranslationException("Language code is not compliant with ISO-639-1", 400);
@@ -45,12 +45,12 @@ class TranslatorService implements TranslatorInterface
                 } elseif (is_array($propertyValue)) {
                     $translated[$translatablePropertyName] = self::iterateHelper($propertyValue, $toLanguage, $fromLanguage);
                     continue;
-                } elseif ($propertyValue instanceof Translatable) {
+                } elseif ($propertyValue instanceof TranslatableInterface) {
                     $translated[$translatablePropertyName] = self::translateEntity($propertyValue, $toLanguage, $fromLanguage);
                     continue;
                 }
             }
-            throw new TranslationException("Translatable property not found or property type is not string/Translatable[]");
+            throw new TranslationException("TranslatableInterface property not found or property type is not string/TranslatableInterface[]");
         }
 
         return array_merge($object->getAllAsArray(), $translated);
@@ -59,7 +59,7 @@ class TranslatorService implements TranslatorInterface
     /**
      * @param string $toLanguage
      * @param string $fromLanguage
-     * @param Translatable[] $array
+     * @param TranslatableInterface[] $array
      * @return array
      * @throws TranslationException
      */

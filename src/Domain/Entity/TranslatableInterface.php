@@ -4,7 +4,7 @@
 namespace App\Domain\Entity;
 
 
-interface Translatable
+interface TranslatableInterface
 {
     public static function getTranslatablePropertyNames(): array;
 

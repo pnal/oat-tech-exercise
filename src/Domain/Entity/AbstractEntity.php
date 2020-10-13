@@ -4,7 +4,7 @@
 namespace App\Domain\Entity;
 
 
-abstract class AbstractEntity Implements Translatable
+abstract class AbstractEntity Implements TranslatableInterface
 {
     protected static $propertiesCanBeTranslated = [];
 

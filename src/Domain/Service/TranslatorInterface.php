@@ -4,7 +4,7 @@
 namespace App\Domain\Service;
 
 
-use App\Domain\Entity\Translatable;
+use App\Domain\Entity\TranslatableInterface;
 
 interface TranslatorInterface
 {
@@ -12,10 +12,10 @@ interface TranslatorInterface
 
     /**
      * Translates the text $text into $targetLanguage
-     * @param Translatable $object
+     * @param TranslatableInterface $object
      * @param string $toLanguage
      * @param string $fromLanguage
      * @return array
      */
-    public function translateEntity(Translatable $object, string $toLanguage, string $fromLanguage = self::DEFAULT_LANG): array;
+    public function translateEntity(TranslatableInterface $object, string $toLanguage, string $fromLanguage = self::DEFAULT_LANG): array;
 }
