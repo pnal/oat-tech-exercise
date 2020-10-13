@@ -12,11 +12,13 @@ abstract class AbstractCollection implements IteratorAggregate, Countable
 {
     protected $values;
 
-    public function toArray() : array {
+    public function toArray(): array
+    {
         return (array)$this->values;
     }
 
-    public function getIterator() {
+    public function getIterator()
+    {
         return new ArrayIterator($this->values);
     }
 

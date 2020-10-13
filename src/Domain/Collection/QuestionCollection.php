@@ -11,11 +11,13 @@ class QuestionCollection extends AbstractCollection
      */
     protected $values;
 
-    public function __construct(array $questions = []) {
+    public function __construct(array $questions = [])
+    {
         $this->values = $questions;
     }
 
-    public function add(AbstractQuestion $question):self {
+    public function add(AbstractQuestion $question): self
+    {
         $this->values[] = $question;
         return $this;
     }
