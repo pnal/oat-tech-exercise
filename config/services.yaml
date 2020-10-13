@@ -32,7 +32,7 @@ services:
 
     App\Storage\FileStorage:
         arguments:
-            $dataDirPath: '%kernel.project_dir%/var/data/questions'
+            $dataDirPath: '%kernel.project_dir%/%env(DATA_PATH)%'
 
     App\Service\Translator\AdapterInterface:
         class: App\Service\Translator\Adapter\GoogleTranslatorAdapter

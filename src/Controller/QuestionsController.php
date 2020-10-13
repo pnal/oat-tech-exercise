@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class QuestionController extends AbstractController
+class QuestionsController extends AbstractController
 {
     public function postQuestion (Request $request, QuestionApiServiceInterface $questionApiService) {
         $request = $this->convertRequest($request);

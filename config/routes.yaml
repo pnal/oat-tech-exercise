@@ -1,9 +1,9 @@
 api_question_post:
   path:       /question
-  controller: App\Controller\QuestionController::postQuestion
+  controller: App\Controller\QuestionsController::postQuestion
   methods:    POST
 
 api_questions_get:
   path:       /questions
-  controller: App\Controller\QuestionController::getQuestions
+  controller: App\Controller\QuestionsController::getQuestions
   methods:    GET
