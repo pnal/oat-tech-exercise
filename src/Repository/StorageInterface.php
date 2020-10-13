@@ -1,5 +1,5 @@
 <?php
-namespace App\Repository\Question;
+namespace App\Repository;
 
 interface StorageInterface
 {

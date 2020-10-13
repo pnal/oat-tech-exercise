@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\Storage\Question;
+namespace App\Storage;
 
-use App\Repository\Question\StorageInterface;
+use App\Repository\StorageInterface;
 use RuntimeException;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;

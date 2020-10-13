@@ -7,6 +7,7 @@ namespace App\Repository\Question;
 use App\Domain\Collection\QuestionCollection;
 use App\Domain\Entity\AbstractQuestion;
 use App\Domain\Repository\QuestionRepositoryInterface;
+use App\Repository\StorageInterface;
 use App\Storage\Question\DataFormatterInterface;
 
 class QuestionRepository implements QuestionRepositoryInterface

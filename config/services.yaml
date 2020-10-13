@@ -30,7 +30,7 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\Storage\Question\FileStorage:
+    App\Storage\FileStorage:
         arguments:
             $dataDirPath: '%kernel.project_dir%/var/data/questions'
 
@@ -38,5 +38,5 @@ services:
         class: App\Service\Translator\Adapter\GoogleTranslatorAdapter
 
     App\Storage\Question\DataFormatterInterface:
-        #class: App\Storage\Question\JsonDataFormatter
-        class: App\Storage\Question\CsvDataFormatter
+        class: App\Storage\Question\JsonDataFormatter
+        #class: App\Storage\Question\CsvDataFormatter
