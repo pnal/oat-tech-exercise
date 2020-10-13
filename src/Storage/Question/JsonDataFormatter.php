@@ -4,6 +4,8 @@
 namespace App\Storage\Question;
 
 use App\Domain\Collection\QuestionCollection;
+use App\Domain\Entity\Choice;
+use App\Domain\Entity\MultipleChoiceQuestion;
 
 class JsonDataFormatter implements DataFormatterInterface
 {
@@ -16,7 +18,15 @@ class JsonDataFormatter implements DataFormatterInterface
 
     public function getCollectionFromStorageFormat(string $data): ?QuestionCollection
     {
-        return new QuestionCollection($this->decodeData($data));
+        $collection = new QuestionCollection();
+        foreach ($this->decodeData($data) as $questionData) {
+            $question = new MultipleChoiceQuestion($questionData->text, $questionData->createdAt);
+            foreach ($questionData->choices as $choice) {
+                $question->addChoice(new Choice($choice->text));
+            }
+            $collection->add($question);
+        }
+        return $collection;
     }
 
     public function getFormatFileExtension(): string
