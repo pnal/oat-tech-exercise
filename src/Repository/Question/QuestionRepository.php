@@ -33,14 +33,18 @@ class QuestionRepository implements QuestionRepositoryInterface
     public function getAll(): QuestionCollection
     {
         $questionsData = $this->storage->get();
-
+        if (null === $questionsData) {
+            return new QuestionCollection();
+        }
         return $this->formatter->getCollectionFromStorageFormat($questionsData);
     }
 
     public function storeOne(AbstractQuestion $question): AbstractQuestion
     {
         $storedData = $this->storage->get();
-        $questions = $storedData ? $this->formatter->getCollectionFromStorageFormat($storedData) : new QuestionCollection();
+        $questions = $storedData ? $this->formatter->getCollectionFromStorageFormat(
+            $storedData
+        ) : new QuestionCollection();
 
         $questions->add($question);
 
