@@ -14,5 +14,5 @@ services:
     build: ./
     entrypoint: ["/usr/src/app/docker/entrypoint.sh"]
     command: ["php-fpm"]
-    volumes:
-      - ./:/usr/src/app
+#    volumes:
+#      - ./:/usr/src/app
