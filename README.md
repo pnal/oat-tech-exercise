@@ -23,5 +23,11 @@ Now it is only one adapter ``GoogleTranslatorAdapter`` which uses [stichoza/goog
         class: App\Service\Translator\Adapter\GoogleTranslatorAdapter
 ```
 
+### File storage folder
+You can choose a directory for storage by *.env* variable:
+```
+DATA_PATH=var/data/questions
+```
+
 ## REST API
 To explore API documentation you could copy [open-api.yaml](docs/open-api.yaml) content to https://editor.swagger.io/
