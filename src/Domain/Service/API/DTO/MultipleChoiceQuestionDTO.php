@@ -40,6 +40,7 @@ class MultipleChoiceQuestionDTO
             throw new APIValidationException('Request does not contain valid JSON object');
         }
 
+        // Todo check datetime and format for createdAt
         foreach (static::REQUIRED_PROPS as $propName) {
             if (!isset($data[$propName])) {
                 throw new APIValidationException(sprintf(static::MISSED_PROPERTY_ERROR_MESSAGE_TEMPLATE, $propName));

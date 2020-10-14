@@ -22,3 +22,6 @@ Now it is only one adapter ``GoogleTranslatorAdapter`` which uses [stichoza/goog
     App\Service\Translator\AdapterInterface:
         class: App\Service\Translator\Adapter\GoogleTranslatorAdapter
 ```
+
+## REST API
+To explore API documentation you could copy [open-api.yaml](docs/open-api.yaml) content to https://editor.swagger.io/
